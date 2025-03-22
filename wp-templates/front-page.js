@@ -5,9 +5,9 @@ import Header from "../components/header";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import style from "../styles/front-page.module.css";
-import useAIChat from "../useAskChatBot.js"; // Updated for AI Chat functionality
-import useImageGenerator from "../useGenerateImage.js"; // Updated for image generation
-import useWritingAssistant from "../useGenerateWriting.js"; // Updated for writing assistance
+import useAskChatBot from "../useAskChatBot.js"; // Updated for AI Chat functionality
+import useGenerateImage from "../useGenerateImage.js"; // Updated for image generation
+import useGenerateWriting from "../useGenerateWriting.js"; // Updated for writing assistance
 
 export default function Component(props) {
     const { title: siteTitle, description: siteDescription } = props.data.generalSettings;
