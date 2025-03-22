@@ -32,3 +32,39 @@
   font-size: 1.25rem;
   margin: 0;
 }
+
+.tabContainer {
+    margin-top: 20px;
+}
+
+.tabList {
+    display: flex;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    border-bottom: 2px solid #ccc;
+}
+
+.tabItem {
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.tabItem:hover {
+    background-color: #f0f0f0;
+}
+
+.tabItem.active {
+    border-bottom: 2px solid #007bff;
+    font-weight: bold;
+    color: #007bff;
+}
+
+.tabContent {
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-top: -1px; /* Overlap the border */
+}
