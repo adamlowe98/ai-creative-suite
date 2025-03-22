@@ -5,62 +5,10 @@ import Header from "../components/header";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import style from "../styles/front-page.module.css";
-
-async function generateImage() {
-    const prompt = document.getElementById('imagePrompt').value;
-    const response = await fetch('https://api.replicate.com/v1/generate', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Token ${process.env.NEXT_PUBLIC_REPLICATE_API_KEY}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt }),
-    });
-    const data = await response.json();
-    console.log("Generated image data:", data);
-}
-
-async function askChatBot() {
-    const question = document.getElementById('chatInput').value;
-    const response = await fetch('https://api.google.com/gemini/chat', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ question }),
-    });
-    const data = await response.json();
-    console.log("Chatbot response:", data);
-}
-
-async function generateWriting() {
-    const prompt = document.getElementById('writingPrompt').value;
-    const response = await fetch('https://api.google.com/gemini/writing', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt }),
-    });
-    const data = await response.json();
-    console.log("Generated writing data:", data);
-}
-
-async function generate3DModel() {
-    const prompt = document.getElementById('modelPrompt').value;
-    const response = await fetch('https://api.meshy.com/v1/models', {
-        method: 'POST',
-        headers: {
-            'Authorization': `Bearer ${process.env.NEXT_PUBLIC_MESHY_API_KEY}`,
-            'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ prompt }),
-    });
-    const data = await response.json();
-    console.log("Generated 3D model data:", data);
-}
+import useGenerateImage from "../hooks/useGenerateImage";
+import useAskChatBot from "../hooks/useAskChatBot";
+import useGenerateWriting from "../hooks/useGenerateWriting";
+import useGenerate3DModel from "../hooks/useGenerate3DModel";
 
 export default function Component(props) {
     const { title: siteTitle, description: siteDescription } = props.data.generalSettings;
@@ -68,6 +16,12 @@ export default function Component(props) {
 
     // State to manage the active tab
     const [activeTab, setActiveTab] = useState('generateImage');
+
+    // Custom hooks to handle the respective API calls
+    const { generateImage } = useGenerateImage();
+    const { askChatBot } = useAskChatBot();
+    const { generateWriting } = useGenerateWriting();
+    const { generate3DModel } = useGenerate3DModel();
 
     // Function to render content based on the active tab
     const renderTabContent = () => {
@@ -77,7 +31,7 @@ export default function Component(props) {
                     <div>
                         <h2>Generate Images</h2>
                         <textarea id="imagePrompt" placeholder="Enter your image prompt here..."></textarea>
-                        <button onClick={generateImage}>Generate Image</button>
+                        <button onClick={() => generateImage(document.getElementById('imagePrompt').value)}>Generate Image</button>
                     </div>
                 );
             case 'chatBot':
@@ -85,7 +39,7 @@ export default function Component(props) {
                     <div>
                         <h2>Chat with AI</h2>
                         <input id="chatInput" type="text" placeholder="Ask your question here..." />
-                        <button onClick={askChatBot}>Ask</button>
+                        <button onClick={() => askChatBot(document.getElementById('chatInput').value)}>Ask</button>
                     </div>
                 );
             case 'writingAssistant':
@@ -93,7 +47,7 @@ export default function Component(props) {
                     <div>
                         <h2>Writing Assistant</h2>
                         <textarea id="writingPrompt" placeholder="Enter your writing prompt here..."></textarea>
-                        <button onClick={generateWriting}>Generate Writing</button>
+                        <button onClick={() => generateWriting(document.getElementById('writingPrompt').value)}>Generate Writing</button>
                     </div>
                 );
             case '3DModeling':
@@ -101,7 +55,7 @@ export default function Component(props) {
                     <div>
                         <h2>3D Modeling</h2>
                         <textarea id="modelPrompt" placeholder="Describe your 3D model here..."></textarea>
-                        <button onClick={generate3DModel}>Generate 3D Model</button>
+                        <button onClick={() => generate3DModel(document.getElementById('modelPrompt').value)}>Generate 3D Model</button>
                     </div>
                 );
             default:
