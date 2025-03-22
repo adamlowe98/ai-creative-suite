@@ -5,10 +5,10 @@ import Header from "../components/header";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import style from "../styles/front-page.module.css";
-import useGenerateImage from "../hooks/useGenerateImage";
-import useAskChatBot from "../hooks/useAskChatBot";
-import useGenerateWriting from "../hooks/useGenerateWriting";
-import useGenerate3DModel from "../hooks/useGenerate3DModel";
+import useGenerateImage from "../useGenerateImage";
+import useAskChatBot from "../useAskChatBot";
+import useGenerateWriting from "../useGenerateWriting";
+import useGenerate3DModel from "../useGenerate3DModel";
 
 export default function Component(props) {
     const { title: siteTitle, description: siteDescription } = props.data.generalSettings;
