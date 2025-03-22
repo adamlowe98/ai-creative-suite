@@ -33,38 +33,77 @@
   margin: 0;
 }
 
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Arial', sans-serif;
+}
+
 .tabContainer {
-    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    margin-top: 40px;
 }
 
 .tabList {
-    display: flex;
     list-style: none;
+    display: flex;
+    justify-content: space-around;
     padding: 0;
-    margin: 0;
-    border-bottom: 2px solid #ccc;
+    background: #f8f9fa;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .tabItem {
-    padding: 10px 20px;
+    padding: 15px 20px;
     cursor: pointer;
-    transition: background-color 0.3s;
+    transition: background 0.3s;
 }
 
 .tabItem:hover {
-    background-color: #f0f0f0;
+    background: #e0e0e0;
 }
 
-.tabItem.active {
-    border-bottom: 2px solid #007bff;
+.active {
+    background: #007bff;
+    color: white;
     font-weight: bold;
-    color: #007bff;
 }
 
 .tabContent {
     padding: 20px;
-    background-color: #f9f9f9;
-    border: 1px solid #ccc;
+    border: 1px solid #e0e0e0;
     border-radius: 5px;
-    margin-top: -1px; /* Overlap the border */
+    margin-top: 20px;
 }
+
+.contentBlock {
+    margin: 20px 0;
+}
+
+.inputField {
+    width: 100%;
+    height: 100px;
+    padding: 10px;
+    border: 1px solid #ced4da;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 16px;
+}
+
+.actionButton {
+    background: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.actionButton:hover {
+    background: #0056b3;
+}
+
