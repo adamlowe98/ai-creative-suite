@@ -5,9 +5,6 @@ import Header from "../components/header";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import style from "../styles/front-page.module.css";
-import dotenv from 'dotenv';
-
-dotenv.config(); // Load environment variables
 
 if (typeof window !== 'undefined') {
     document.addEventListener('DOMContentLoaded', function() {
@@ -27,7 +24,7 @@ if (typeof window !== 'undefined') {
             const response = await fetch('https://api.replicate.com/v1/generate', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
+                    'Authorization': `Token ${process.env.NEXT_PUBLIC_REPLICATE_API_KEY}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ prompt }),
@@ -41,7 +38,7 @@ if (typeof window !== 'undefined') {
             const response = await fetch('https://api.google.com/gemini/chat', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${process.env.GOOGLE_GEMINI_API_KEY}`,
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ question }),
@@ -55,7 +52,7 @@ if (typeof window !== 'undefined') {
             const response = await fetch('https://api.google.com/gemini/writing', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${process.env.GOOGLE_GEMINI_API_KEY}`,
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_GOOGLE_GEMINI_API_KEY}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ prompt }),
@@ -69,7 +66,7 @@ if (typeof window !== 'undefined') {
             const response = await fetch('https://api.meshy.com/v1/models', {
                 method: 'POST',
                 headers: {
-                    'Authorization': `Bearer ${process.env.MESHY_API_KEY}`,
+                    'Authorization': `Bearer ${process.env.NEXT_PUBLIC_MESHY_API_KEY}`,
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({ prompt }),
