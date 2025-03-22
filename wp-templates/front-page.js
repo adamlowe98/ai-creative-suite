@@ -17,11 +17,9 @@ export default function Component(props) {
     const [activeTab, setActiveTab] = useState('imageGenerator');
 
     // Custom hooks to handle the respective API calls
-    const { generateImage } = useImageGenerator();
-    const { askChatBot } = useAIChat();
-    const { generateWriting } = useWritingAssistant();
-    const { generateLyrics } = useLyricGenerator(); // Lyric Generation Hook
-    const { generateMusic } = useMusicGenerator(); // Music Generation Hook
+    const { generateImage } = useGenerateImage();
+    const { askChatBot } = useAskChatBot();
+    const { generateWriting } = useGenerateWriting();
 
     // Function to render content based on the active tab
     const renderTabContent = () => {
