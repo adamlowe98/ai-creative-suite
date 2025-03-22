@@ -1,27 +1,24 @@
-import React, { useState } from 'react'; // Import React and useState
+import React, { useState } from 'react'; 
 import { gql } from "@apollo/client";
 import Head from "next/head";
 import Header from "../components/header";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import style from "../styles/front-page.module.css";
-import useAskChatBot from "../wp-templates/useAskChatBot.js"; // Updated for AI Chat functionality
-import useGenerateImage from "../wp-templates/useGenerateImage.js"; // Updated for image generation
-import useGenerateWriting from "../wp-templates/useGenerateWriting.js"; // Updated for writing assistance
+import useAskChatBot from "../wp-templates/useAskChatBot.js"; 
+import useGenerateImage from "../wp-templates/useGenerateImage.js"; 
+import useGenerateWriting from "../wp-templates/useGenerateWriting.js"; 
 
 export default function Component(props) {
     const { title: siteTitle, description: siteDescription } = props.data.generalSettings;
     const menuItems = props.data.primaryMenuItems.nodes;
 
-    // State to manage the active tab
     const [activeTab, setActiveTab] = useState('imageGenerator');
 
-    // Custom hooks to handle the respective API calls
     const { generateImage } = useGenerateImage();
     const { askChatBot } = useAskChatBot();
     const { generateWriting } = useGenerateWriting();
 
-    // Function to render content based on the active tab
     const renderTabContent = () => {
         switch (activeTab) {
             case 'imageGenerator':
