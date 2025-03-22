@@ -204,4 +204,23 @@ export default function Component(props) {
           <h2>Writing Assistant</h2>
           <textarea id="writingPrompt" placeholder="Enter your writing prompt here..."></textarea>
           <button onClick={generateWriting}>Generate Writing</button>
-       
+        </div>
+
+        <div id="3DModeling" className="tab-content">
+          <h2>3D Modeling</h2>
+          <textarea id="modelPrompt" placeholder="Describe your 3D model here..."></textarea>
+          <button onClick={generate3DModel}>Generate 3D Model</button>
+        </div>
+      </main>
+
+      <Footer />
+    </>
+  );
+}
+
+Component.query = gql`
+  ${Header.fragments.entry}
+  query GetHomePage {
+    ...HeaderFragment
+  }
+`;
