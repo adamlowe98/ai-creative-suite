@@ -107,3 +107,39 @@
     background: #0056b3;
 }
 
+.tabContainer {
+    display: flex;
+    flex-direction: column;
+    margin: 20px;
+}
+
+.tabList {
+    list-style-type: none;
+    padding: 0;
+    display: flex;
+    justify-content: space-around;
+}
+
+.tabItem {
+    cursor: pointer;
+    padding: 10px 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.tabItem:hover {
+    background-color: #f0f0f0;
+}
+
+.active {
+    background-color: #0070f3;
+    color: white;
+}
+
+.tabContent {
+    margin-top: 20px;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
