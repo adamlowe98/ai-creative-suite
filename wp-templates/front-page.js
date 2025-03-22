@@ -1,3 +1,4 @@
+import React from 'react'; // Import React
 import { gql } from "@apollo/client";
 import Head from "next/head";
 import Link from "next/link";
