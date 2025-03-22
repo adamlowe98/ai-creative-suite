@@ -5,6 +5,9 @@ import Header from "../components/header";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import style from "../styles/front-page.module.css";
+import dotenv from 'dotenv';
+
+dotenv.config(); // Load environment variables
 
 if (typeof window !== 'undefined') {
     document.addEventListener('DOMContentLoaded', function() {
@@ -19,28 +22,60 @@ if (typeof window !== 'undefined') {
             });
         });
 
-        function generateImage() {
+        async function generateImage() {
             const prompt = document.getElementById('imagePrompt').value;
-            // Call Replicate API to generate image
-            console.log("Generating image with prompt:", prompt);
+            const response = await fetch('https://api.replicate.com/v1/generate', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Token ${process.env.REPLICATE_API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ prompt }),
+            });
+            const data = await response.json();
+            console.log("Generated image data:", data);
         }
 
-        function askChatBot() {
+        async function askChatBot() {
             const question = document.getElementById('chatInput').value;
-            // Call Google Gemini API to get response
-            console.log("Asking chatbot:", question);
+            const response = await fetch('https://api.google.com/gemini/chat', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${process.env.GOOGLE_GEMINI_API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ question }),
+            });
+            const data = await response.json();
+            console.log("Chatbot response:", data);
         }
 
-        function generateWriting() {
+        async function generateWriting() {
             const prompt = document.getElementById('writingPrompt').value;
-            // Call Google Gemini API to generate writing
-            console.log("Generating writing with prompt:", prompt);
+            const response = await fetch('https://api.google.com/gemini/writing', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${process.env.GOOGLE_GEMINI_API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ prompt }),
+            });
+            const data = await response.json();
+            console.log("Generated writing data:", data);
         }
 
-        function generate3DModel() {
+        async function generate3DModel() {
             const prompt = document.getElementById('modelPrompt').value;
-            // Call Meshy API to generate 3D model
-            console.log("Generating 3D model with prompt:", prompt);
+            const response = await fetch('https://api.meshy.com/v1/models', {
+                method: 'POST',
+                headers: {
+                    'Authorization': `Bearer ${process.env.MESHY_API_KEY}`,
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ prompt }),
+            });
+            const data = await response.json();
+            console.log("Generated 3D model data:", data);
         }
 
         const style = document.createElement('style');
@@ -169,23 +204,4 @@ export default function Component(props) {
           <h2>Writing Assistant</h2>
           <textarea id="writingPrompt" placeholder="Enter your writing prompt here..."></textarea>
           <button onClick={generateWriting}>Generate Writing</button>
-        </div>
-
-        <div id="3DModeling" className="tab-content">
-          <h2>3D Modeling</h2>
-          <textarea id="modelPrompt" placeholder="Describe your 3D model here..."></textarea>
-          <button onClick={generate3DModel}>Generate 3D Model</button>
-        </div>
-      </main>
-
-      <Footer />
-    </>
-  );
-}
-
-Component.query = gql`
-  ${Header.fragments.entry}
-  query GetHomePage {
-    ...HeaderFragment
-  }
-`;
+       
