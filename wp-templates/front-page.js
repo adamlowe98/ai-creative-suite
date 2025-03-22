@@ -100,7 +100,7 @@ export default function Component(props) {
     );
 }
 
-Component.query = gql`
+Component.query = gql` 
   ${Header.fragments.entry}
   query GetHomePage {
     ...HeaderFragment
