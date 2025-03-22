@@ -1,7 +1,6 @@
-import React from 'react'; // Import React
+import React, { useState } from 'react'; // Import React and useState
 import { gql } from "@apollo/client";
 import Head from "next/head";
-import Link from "next/link";
 import Header from "../components/header";
 import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
@@ -64,23 +63,51 @@ async function generate3DModel() {
 }
 
 export default function Component(props) {
-    const { title: siteTitle, description: siteDescription } =
-        props.data.generalSettings;
+    const { title: siteTitle, description: siteDescription } = props.data.generalSettings;
     const menuItems = props.data.primaryMenuItems.nodes;
 
-    // This function will run after the component mounts
-    React.useEffect(() => {
-        document.querySelectorAll('nav ul li a').forEach(tab => {
-            tab.addEventListener('click', function(e) {
-                e.preventDefault();
-                document.querySelectorAll('.tab-content').forEach(content => {
-                    content.classList.remove('active');
-                });
-                const target = document.querySelector(this.getAttribute('href'));
-                target.classList.add('active');
-            });
-        });
-    }, []);
+    // State to manage the active tab
+    const [activeTab, setActiveTab] = useState('generateImage');
+
+    // Function to render content based on the active tab
+    const renderTabContent = () => {
+        switch (activeTab) {
+            case 'generateImage':
+                return (
+                    <div>
+                        <h2>Generate Images</h2>
+                        <textarea id="imagePrompt" placeholder="Enter your image prompt here..."></textarea>
+                        <button onClick={generateImage}>Generate Image</button>
+                    </div>
+                );
+            case 'chatBot':
+                return (
+                    <div>
+                        <h2>Chat with AI</h2>
+                        <input id="chatInput" type="text" placeholder="Ask your question here..." />
+                        <button onClick={askChatBot}>Ask</button>
+                    </div>
+                );
+            case 'writingAssistant':
+                return (
+                    <div>
+                        <h2>Writing Assistant</h2>
+                        <textarea id="writingPrompt" placeholder="Enter your writing prompt here..."></textarea>
+                        <button onClick={generateWriting}>Generate Writing</button>
+                    </div>
+                );
+            case '3DModeling':
+                return (
+                    <div>
+                        <h2>3D Modeling</h2>
+                        <textarea id="modelPrompt" placeholder="Describe your 3D model here..."></textarea>
+                        <button onClick={generate3DModel}>Generate 3D Model</button>
+                    </div>
+                );
+            default:
+                return null;
+        }
+    };
 
     return (
         <>
@@ -97,50 +124,16 @@ export default function Component(props) {
             <main className="container">
                 <EntryHeader title="Welcome to the AI Creative Suite Platform" />
 
-                <section className={style.cardGrid}>
-                    <Link href="#generateImage" className={style.card}>
-                        <h3>Generate Images →</h3>
-                        <p>Use AI to create stunning images based on your prompts.</p>
-                    </Link>
-
-                    <Link href="#chatBot" className={style.card}>
-                        <h3>Chat with AI →</h3>
-                        <p>Ask questions and get instant responses from our AI chatbot.</p>
-                    </Link>
-
-                    <Link href="#writingAssistant" className={style.card}>
-                        <h3>Writing Assistant →</h3>
-                        <p>Generate creative writing pieces with the help of AI.</p>
-                    </Link>
-
-                    <Link href="#3DModeling" className={style.card}>
-                        <h3>3D Modeling →</h3>
-                        <p>Create and visualize 3D models effortlessly.</p>
-                    </Link>
-                </section>
-
-                <div id="generateImage" className="tab-content">
-                    <h2>Generate Images</h2>
-                    <textarea id="imagePrompt" placeholder="Enter your image prompt here..."></textarea>
-                    <button onClick={generateImage}>Generate Image</button>
-                </div>
-
-                <div id="chatBot" className="tab-content">
-                    <h2>Chat with AI</h2>
-                    <input id="chatInput" type="text" placeholder="Ask your question here..." />
-                    <button onClick={askChatBot}>Ask</button>
-                </div>
-
-                <div id="writingAssistant" className="tab-content">
-                    <h2>Writing Assistant</h2>
-                    <textarea id="writingPrompt" placeholder="Enter your writing prompt here..."></textarea>
-                    <button onClick={generateWriting}>Generate Writing</button>
-                </div>
-
-                <div id="3DModeling" className="tab-content">
-                    <h2>3D Modeling</h2>
-                    <textarea id="modelPrompt" placeholder="Describe your 3D model here..."></textarea>
-                    <button onClick={generate3DModel}>Generate 3D Model</button>
+                <div className={style.tabContainer}>
+                    <ul className={style.tabList}>
+                        <li className={`${style.tabItem} ${activeTab === 'generateImage' ? style.active : ''}`} onClick={() => setActiveTab('generateImage')}>Generate Images</li>
+                        <li className={`${style.tabItem} ${activeTab === 'chatBot' ? style.active : ''}`} onClick={() => setActiveTab('chatBot')}>Chat with AI</li>
+                        <li className={`${style.tabItem} ${activeTab === 'writingAssistant' ? style.active : ''}`} onClick={() => setActiveTab('writingAssistant')}>Writing Assistant</li>
+                        <li className={`${style.tabItem} ${activeTab === '3DModeling' ? style.active : ''}`} onClick={() => setActiveTab('3DModeling')}>3D Modeling</li>
+                    </ul>
+                    <div className={style.tabContent}>
+                        {renderTabContent()}
+                    </div>
                 </div>
             </main>
 
