@@ -6,8 +6,8 @@ import EntryHeader from "../components/entry-header";
 import Footer from "../components/footer";
 import style from "../styles/front-page.module.css";
 import useAskChatBot from "../wp-templates/useAskChatBot.js"; // Updated for AI Chat functionality
-import useGenerateImage from "../useGenerateImage.js"; // Updated for image generation
-import useGenerateWriting from "../useGenerateWriting.js"; // Updated for writing assistance
+import useGenerateImage from "../wp-templates/useGenerateImage.js"; // Updated for image generation
+import useGenerateWriting from "../wp-templates/useGenerateWriting.js"; // Updated for writing assistance
 
 export default function Component(props) {
     const { title: siteTitle, description: siteDescription } = props.data.generalSettings;
