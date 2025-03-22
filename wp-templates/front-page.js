@@ -22,21 +22,25 @@ if (typeof window !== 'undefined') {
         function generateImage() {
             const prompt = document.getElementById('imagePrompt').value;
             // Call Replicate API to generate image
+            console.log("Generating image with prompt:", prompt);
         }
 
         function askChatBot() {
             const question = document.getElementById('chatInput').value;
             // Call Google Gemini API to get response
+            console.log("Asking chatbot:", question);
         }
 
         function generateWriting() {
             const prompt = document.getElementById('writingPrompt').value;
             // Call Google Gemini API to generate writing
+            console.log("Generating writing with prompt:", prompt);
         }
 
         function generate3DModel() {
             const prompt = document.getElementById('modelPrompt').value;
             // Call Meshy API to generate 3D model
+            console.log("Generating 3D model with prompt:", prompt);
         }
 
         const style = document.createElement('style');
@@ -128,38 +132,50 @@ export default function Component(props) {
         <EntryHeader title="Welcome to the AI Creative Suite Platform" />
 
         <section className={style.cardGrid}>
-          <Link
-            href="#generateImage"
-            className={style.card}
-          >
+          <Link href="#generateImage" className={style.card}>
             <h3>Generate Images →</h3>
             <p>Use AI to create stunning images based on your prompts.</p>
           </Link>
 
-          <Link
-            href="#chatBot"
-            className={style.card}
-          >
+          <Link href="#chatBot" className={style.card}>
             <h3>Chat with AI →</h3>
             <p>Ask questions and get instant responses from our AI chatbot.</p>
           </Link>
 
-          <Link
-            href="#writingAssistant"
-            className={style.card}
-          >
+          <Link href="#writingAssistant" className={style.card}>
             <h3>Writing Assistant →</h3>
             <p>Generate creative writing pieces with the help of AI.</p>
           </Link>
 
-          <Link
-            href="#3DModeling"
-            className={style.card}
-          >
+          <Link href="#3DModeling" className={style.card}>
             <h3>3D Modeling →</h3>
             <p>Create and visualize 3D models effortlessly.</p>
           </Link>
         </section>
+
+        <div id="generateImage" className="tab-content">
+          <h2>Generate Images</h2>
+          <textarea id="imagePrompt" placeholder="Enter your image prompt here..."></textarea>
+          <button onClick={generateImage}>Generate Image</button>
+        </div>
+
+        <div id="chatBot" className="tab-content">
+          <h2>Chat with AI</h2>
+          <input id="chatInput" type="text" placeholder="Ask your question here..." />
+          <button onClick={askChatBot}>Ask</button>
+        </div>
+
+        <div id="writingAssistant" className="tab-content">
+          <h2>Writing Assistant</h2>
+          <textarea id="writingPrompt" placeholder="Enter your writing prompt here..."></textarea>
+          <button onClick={generateWriting}>Generate Writing</button>
+        </div>
+
+        <div id="3DModeling" className="tab-content">
+          <h2>3D Modeling</h2>
+          <textarea id="modelPrompt" placeholder="Describe your 3D model here..."></textarea>
+          <button onClick={generate3DModel}>Generate 3D Model</button>
+        </div>
       </main>
 
       <Footer />
